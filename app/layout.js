@@ -6,8 +6,13 @@ import React, { useReducer } from "react";
 import reducerGroups from "@/hooks/groupsReducer";
 import reducerPosts from "@/hooks/postsReducer";
 
-const initialStateGroups = JSON.parse(localStorage.getItem("groups") || "[]");
-const initialStatePosts = JSON.parse(localStorage.getItem("groups") || "[]");
+let initialStateGroups = "[]";
+let initialStatePosts = "[]";
+
+if (typeof window !== "undefined") {
+  initialStateGroups = JSON.parse(localStorage.getItem("groups") || "[]");
+  initialStatePosts = JSON.parse(localStorage.getItem("groups") || "[]");
+}
 
 const inter = Inter({ subsets: ["latin"] });
 
