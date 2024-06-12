@@ -17,6 +17,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { GroupContext } from "@/app/layout";
+import Link from "next/link";
 
 export default function GroupList() {
   const { group: data } = useContext(GroupContext);
@@ -49,14 +50,19 @@ function Group({ id, name, description, createAt }) {
         <CardDescription>{description}</CardDescription>
       </CardContent>
       <CardFooter>
-        <div className="flex gap-4">
-          <EditGroupBTN id={id} name={name} description={description} />
-          <Button
-            className="w-36"
-            onClick={() => dispatch({ type: "deleteGroup", payload: { id } })}
-          >
-            Delete
-          </Button>
+        <div className="flex gap-2 justify-between w-full">
+          <Link href={`post?${id}`}>
+            <Button className="w-40">Go to Posts</Button>
+          </Link>
+          <div className="space-x-4">
+            <EditGroupBTN id={id} name={name} description={description} />
+            <Button
+              className="w-28"
+              onClick={() => dispatch({ type: "deleteGroup", payload: { id } })}
+            >
+              Delete
+            </Button>
+          </div>
         </div>
       </CardFooter>
     </Card>
@@ -71,7 +77,7 @@ function EditGroupBTN({ id, name, description }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="w-36">
+        <Button variant="outline" className="w-28">
           Edit
         </Button>
       </DialogTrigger>
