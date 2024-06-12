@@ -9,7 +9,7 @@ import reducerPosts from "@/hooks/postsReducer";
 let initialStateGroups = "[]";
 let initialStatePosts = "[]";
 
-if (typeof window !== "undefined") {
+if (localStorage) {
   initialStateGroups = JSON.parse(localStorage.getItem("groups") || "[]");
   initialStatePosts = JSON.parse(localStorage.getItem("groups") || "[]");
 }
