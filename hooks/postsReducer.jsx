@@ -13,16 +13,23 @@ export default function reducer(state, action) {
       };
 
       const updatedPosts = [...state, newPost];
-      localStorage.setItem("posts", JSON.stringify(updatedPosts));
-
-      return updatedPosts;
+      if (localStorage) {
+        localStorage.setItem("posts", JSON.stringify(updatedPosts));
+        return updatedPosts;
+      }
+      return state;
 
     case "delete":
       const id = action.payload.id;
       const newPosts = state.filter((group) => group.id !== id);
-      localStorage.setItem("posts", JSON.stringify(newPosts));
 
-      return newPosts;
+      if (localStorage) {
+        localStorage.setItem("posts", JSON.stringify(newPosts));
+
+        return newPosts;
+      }
+
+      return state;
 
     case "edit":
       const index = state.findIndex((group) => action.payload.id === group.id);
@@ -36,9 +43,11 @@ export default function reducer(state, action) {
           content: action.payload.content,
         };
 
-        localStorage.setItem("posts", JSON.stringify(updatedPosts));
-
-        return updatedPosts;
+        if (localStorage) {
+          localStorage.setItem("posts", JSON.stringify(updatedPosts));
+          return updatedPosts;
+        }
+        return state;
       }
       return state;
     default:

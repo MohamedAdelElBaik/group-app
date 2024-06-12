@@ -13,16 +13,21 @@ export default function reducer(state, action) {
       };
 
       const updatedGroups = [...state, newGroup];
-      localStorage.setItem("groups", JSON.stringify(updatedGroups));
-
-      return updatedGroups;
+      if (localStorage) {
+        localStorage.setItem("groups", JSON.stringify(updatedGroups));
+        return updatedGroups;
+      }
+      return state;
 
     case "deleteGroup":
       const id = action.payload.id;
       const newGroups = state.filter((group) => group.id !== id);
-      localStorage.setItem("groups", JSON.stringify(newGroups));
+      if (localStorage) {
+        localStorage.setItem("groups", JSON.stringify(newGroups));
 
-      return newGroups;
+        return newGroups;
+      }
+      return state;
 
     case "editGroup":
       const index = state.findIndex((group) => action.payload.id === group.id);
@@ -35,10 +40,11 @@ export default function reducer(state, action) {
           name: action.payload.name,
           description: action.payload.description,
         };
-
-        localStorage.setItem("groups", JSON.stringify(updatedGroups));
-
-        return updatedGroups;
+        if (localStorage) {
+          lo0calStorage.setItem("groups", JSON.stringify(updatedGroups));
+          return updatedGroups;
+        }
+        return state;
       }
       return state;
     default:
